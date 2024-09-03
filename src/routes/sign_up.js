@@ -1,8 +1,10 @@
 import Router from "express-promise-router";
 
+import { getSignup, postSignup } from "../controller/signupController.js";
+
 const router = Router();
 
 export default router;
 
-router.get("/", (req, res) => res.send("Sign-up GET: Not yet Implemented"));
-router.post("/", (req, res) => res.send("Sign-up POST: Not yet Implemented"));
+router.get("/", getSignup);
+router.post("/", postSignup);
