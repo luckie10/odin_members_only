@@ -3,8 +3,16 @@ import bcryptjs from "bcryptjs";
 
 import { insertUser } from "../db/queries.js";
 
+const userFactory = (firstName, lastName, username) => {
+  return {
+    firstName: firstName || undefined,
+    lastName: lastName || undefined,
+    username: username || undefined,
+  };
+};
+
 export const getSignup = async (req, res, next) => {
-  res.render("sign_up_form");
+  res.render("sign_up_form", { ...userFactory() });
 };
 
 const validateUser = [
@@ -46,15 +54,17 @@ export const postSignup = [
   async (req, res, next) => {
     const errors = validationResult(req);
 
-    const user = {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      username: req.body.username,
-    };
+    const user = userFactory(
+      req.body.firstName,
+      req.body.lastName,
+      req.body.username,
+    );
 
     if (!errors.isEmpty()) {
-      return res.render("sign_up_form", { user, errors: errors.array() });
+      return res.render("sign_up_form", { ...user, errors: errors.array() });
     }
+
+    // TODO: Check for existing user
 
     bcryptjs.hash(req.body.password, 10, async (err, hashedPassword) => {
       if (err) {
