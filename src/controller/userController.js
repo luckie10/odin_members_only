@@ -11,7 +11,7 @@ const userFactory = (firstName, lastName, username) => {
   };
 };
 
-export const getSignup = async (req, res, next) => {
+export const signUp_get = async (req, res, next) => {
   res.render("sign_up_form", { ...userFactory() });
 };
 
@@ -48,7 +48,7 @@ const validateUser = [
     .custom((value, { req }) => value === req.body.password),
 ];
 
-export const postSignup = [
+export const signUp_post = [
   ...validateUser,
 
   async (req, res, next) => {
