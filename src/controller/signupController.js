@@ -10,29 +10,34 @@ export const getSignup = async (req, res, next) => {
 const validateUser = [
   body("firstName")
     .trim()
-    .isLength({ min: 1 })
+    .notEmpty()
     .escape()
     .withMessage("First name must be specified.")
     .isAlphanumeric()
     .withMessage("First name has non-alphanumeric characters."),
   body("lastName")
     .trim()
-    .isLength({ min: 1 })
+    .notEmpty()
     .escape()
     .withMessage("Last name must be specified.")
     .isAlphanumeric()
     .withMessage("Last name has non-alphanumeric characters."),
   body("username")
     .trim()
-    .isLength({ min: 1 })
+    .notEmpty()
     .escape()
     .withMessage("Username must be specified.")
     .isAlphanumeric()
     .withMessage("Username has non-alphanumeric characters."),
-  body("password").isLength({ min: 5 }),
-  body("confirm_password").custom(
-    (value, { req }) => value === req.body.password,
-  ),
+  body("password")
+    .trim()
+    .isLength({ min: 5 })
+    .withMessage("Password should be at least 5 characters.")
+    .escape(),
+  body("confirm_password")
+    .trim()
+    .escape()
+    .custom((value, { req }) => value === req.body.password),
 ];
 
 export const postSignup = [
