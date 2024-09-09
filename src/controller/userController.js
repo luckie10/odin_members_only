@@ -2,6 +2,7 @@ import { body, validationResult } from "express-validator";
 import bcryptjs from "bcryptjs";
 
 import { insertUser } from "../db/queries.js";
+import passport from "passport";
 
 const userFactory = (firstName, lastName, username) => {
   return {
@@ -78,3 +79,12 @@ export const signUp_post = [
     });
   },
 ];
+
+export const logIn_get = async (req, res, next) => {
+  res.render("log_in_form", { username: undefined });
+};
+
+export const logIn_post = passport.authenticate("local", {
+  successRedirect: "/",
+  failureRedirect: "/",
+});
