@@ -25,10 +25,6 @@
     </div>
   </form>
   <p>
-  <% if (locals.errors) { %>
-    <% errors.map((err) => { %>
-      <%= err.msg %>
-    <% }) %>
-  <% } %>
+    <%- include('partials/errors') -%>
   </p>
 </html>
