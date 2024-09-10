@@ -96,3 +96,7 @@ export const logOut_get = async (req, res, next) => {
     res.redirect("/");
   });
 };
+
+export const code_get = async (req, res, next) => {
+  res.render("code_form");
+};

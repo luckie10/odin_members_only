@@ -1,6 +1,7 @@
 import Router from "express-promise-router";
 
 import {
+  code_get,
   logIn_get,
   logIn_post,
   logOut_get,
@@ -17,3 +18,4 @@ router.post("/sign-up", signUp_post);
 router.get("/log-in", logIn_get);
 router.post("/log-in", logIn_post);
 router.get("/log-out", logOut_get);
+router.get("/code", code_get);
