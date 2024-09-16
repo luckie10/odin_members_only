@@ -2,11 +2,13 @@ import { Router } from "express";
 
 import userRouter from "./user.js";
 
-const router = Router();
+import { index_get } from "../controller/indexController.js";
 
-router.get("/", (req, res) => res.send("Index: not yet implemented"));
+const router = Router();
 
 export default function mountRoutes(app) {
   app.use("/", router);
   app.use("/user", userRouter);
 }
+
+router.get("/", index_get);
