@@ -1,7 +1,7 @@
 import { body, validationResult } from "express-validator";
 import bcryptjs from "bcryptjs";
 
-import { insertUser } from "../db/queries.js";
+import { insertUser, updateUserById } from "../db/queries.js";
 import passport from "passport";
 
 const userFactory = (firstName, lastName, username) => {
@@ -85,7 +85,7 @@ export const logIn_get = async (req, res, next) => {
 };
 
 export const logIn_post = passport.authenticate("local", {
-  successRedirect: "/",
+  successRedirect: "/user/code",
   failureRedirect: "/",
 });
 
@@ -100,3 +100,26 @@ export const logOut_get = async (req, res, next) => {
 export const code_get = async (req, res, next) => {
   res.render("code_form");
 };
+
+export const code_post = [
+  body("code", "Code must be specified.").notEmpty().trim().escape(),
+
+  async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.render("code_form", { errors: errors.array() });
+    }
+
+    if (req.body.code === "Not so") {
+      const response = await updateUserById(
+        res.locals.currentUser.id,
+        "member_status",
+        "member",
+      );
+      return;
+    }
+
+    res.render("code_form", { errors: [{ msg: "Incorrect code." }] });
+  },
+];

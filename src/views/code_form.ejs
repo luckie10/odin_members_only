@@ -1,5 +1,8 @@
 <form method="POST">
-  <label for="code">Code:</label>
+  <label for="code">Secret code:</label>
   <input type="text" name="code" palceholder='Code' value="" required />
   <button type="submit">Submit</button>
 </form>
+<p>
+  <%- include('partials/errors') -%>
+</p>

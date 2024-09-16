@@ -35,3 +35,15 @@ export const getUserById = async (id) => {
     console.log(err);
   }
 };
+
+export const updateUserById = async (id, column, value) => {
+  try {
+    const response = await pool.query(
+      `UPDATE account SET ${column} = $1 WHERE id = $2 RETURNING *`,
+      [value, id],
+    );
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
