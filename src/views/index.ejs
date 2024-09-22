@@ -1,4 +1,13 @@
 <% if (currentUser) { %>
   <a href="/post/create">Create a new message</a>
 <% } %>
-<p>Hello</p>
+<% posts.map(post => { %>
+  <h3><%= post.title %></h3>
+  <p><%= post.body %></p>
+  <% if (currentUser) { %>
+    <div>
+      <%= post.created_at %>
+      <%= post.username %>
+    </div>
+  <% } %>
+<% }) %>

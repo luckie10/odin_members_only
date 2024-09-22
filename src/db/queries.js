@@ -1,3 +1,4 @@
+import e from "express";
 import { default as pool } from "./pool.js";
 
 export const insertUser = async (user) => {
@@ -54,6 +55,19 @@ export const insertPost = async ({ title, body }, user_id) => {
       `INSERT INTO messages(title, body, user_id) VALUES($1, $2, $3)`,
       [title, body, user_id],
     );
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getAllPosts = async () => {
+  try {
+    const { rows } = await pool.query(
+      `SELECT messages.id, title, body, created_at, username
+        FROM messages
+        INNER JOIN account ON account.id = user_id`,
+    );
+    return rows;
   } catch (error) {
     console.error(error);
   }

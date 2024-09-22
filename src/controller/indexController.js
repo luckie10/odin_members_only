@@ -1,3 +1,7 @@
+import { getAllPosts } from "../db/queries.js";
+
 export const index_get = async (req, res, next) => {
-  res.render("index");
+  const posts = await getAllPosts();
+  console.log(posts);
+  res.render("index", { posts });
 };
