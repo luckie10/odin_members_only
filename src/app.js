@@ -9,7 +9,9 @@ import "dotenv/config";
 import mountRoutes from "./routes/index.js";
 import { getUserById, getUserByUsername } from "./db/queries.js";
 
+const PORT = process.env.PORT || 5173;
 const app = express();
+
 app.set("views", path.join(import.meta.dirname, "views"));
 app.set("view engine", "ejs");
 
@@ -59,5 +61,4 @@ app.use(async (req, res, next) => {
 
 mountRoutes(app);
 
-const port = process.env.PORT || 5173;
-app.listen(port, () => console.log(`Listenting on port ${port}`));
+app.listen(PORT, () => console.log(`Listenting on port ${PORT}`));
