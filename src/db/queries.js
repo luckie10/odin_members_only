@@ -47,3 +47,14 @@ export const updateUserById = async (id, column, value) => {
     console.log(error);
   }
 };
+
+export const insertPost = async ({ title, body }, user_id) => {
+  try {
+    await pool.query(
+      `INSERT INTO messages(title, body, user_id) VALUES($1, $2, $3)`,
+      [title, body, user_id],
+    );
+  } catch (error) {
+    console.error(error);
+  }
+};
