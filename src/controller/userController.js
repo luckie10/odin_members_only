@@ -111,13 +111,17 @@ export const code_post = [
       return res.render("code_form", { errors: errors.array() });
     }
 
-    if (req.body.code === "Not so") {
+    if (req.body.code === "power") {
+      const response = await updateUserById(req.user.id, "admin", true);
+    }
+
+    if (req.body.code === "Not so" || req.body.code === "power") {
       const response = await updateUserById(
-        res.locals.currentUser.id,
+        req.user.id,
         "member_status",
         "member",
       );
-      return;
+      return res.redirect("/");
     }
 
     res.render("code_form", { errors: [{ msg: "Incorrect code." }] });

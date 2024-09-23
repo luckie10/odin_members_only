@@ -63,7 +63,7 @@ export const insertPost = async ({ title, body }, user_id) => {
 export const getAllPosts = async () => {
   try {
     const { rows } = await pool.query(
-      `SELECT messages.id, title, body, created_at, username
+      `SELECT messages.id, title, body, created_at, username, admin
         FROM messages
         INNER JOIN account ON account.id = user_id`,
     );
