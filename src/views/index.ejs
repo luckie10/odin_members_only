@@ -10,4 +10,9 @@
       <%= post.username %>
     </div>
   <% } %>
+  <% if (currentUser && currentUser.admin) { %>
+    <div>
+      <a href="/post/<%= post.id %>/delete">Delete Message</a>
+    </div>
+  <% } %>
 <% }) %>

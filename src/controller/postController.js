@@ -1,6 +1,6 @@
 import { body, validationResult } from "express-validator";
 
-import { insertPost } from "../db/queries.js";
+import { deletePostById, insertPost } from "../db/queries.js";
 
 const messageFactory = (title, body) => {
   return {
@@ -33,3 +33,8 @@ export const create_post = [
     res.send("Create POST. Not yet implemented.");
   },
 ];
+
+export const delete_get = async (req, res, next) => {
+  await deletePostById(req.params.id);
+  res.redirect("/");
+};

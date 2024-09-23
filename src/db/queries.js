@@ -72,3 +72,16 @@ export const getAllPosts = async () => {
     console.error(error);
   }
 };
+
+export const deletePostById = async (id) => {
+  try {
+    const result = await pool.query(
+      `DELETE FROM messages WHERE id = $1 RETURNING id`,
+      [id],
+    );
+
+    return id === result;
+  } catch (error) {
+    console.error(error);
+  }
+};
